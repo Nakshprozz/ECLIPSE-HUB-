@@ -77,7 +77,7 @@ buttonGlow.Transparency = 0.3
 buttonGlow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 -- Clipboard logic (replace with your actual link)
-local discordLink = "https://discord.gg/YOURINVITECODE"
+local discordLink = "dsc.gg/geteclipse"
 
 copyButton.MouseButton1Click:Connect(function()
     setclipboard(discordLink)
