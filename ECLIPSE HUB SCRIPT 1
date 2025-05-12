@@ -2,25 +2,34 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 -- Screen GUI
-local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-screenGui.Name = "DiscordLinkGui"
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "EclipseDiscordGui"
 screenGui.ResetOnSpawn = false
+screenGui.Parent = player:WaitForChild("PlayerGui")
 
--- Main window (draggable frame)
+-- Main Frame (draggable UI)
 local mainFrame = Instance.new("Frame")
-mainFrame.Parent = screenGui
 mainFrame.Size = UDim2.new(0, 400, 0, 250)
 mainFrame.Position = UDim2.new(0.5, -200, 0.5, -125)
 mainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 mainFrame.Active = true
 mainFrame.Draggable = true
+mainFrame.Parent = screenGui
 
 -- Rounded corners
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 12)
-corner.Parent = mainFrame
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 12)
+frameCorner.Parent = mainFrame
 
--- Instruction Label
+-- UI Glow (Outer shadow)
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Parent = mainFrame
+uiStroke.Thickness = 3
+uiStroke.Color = Color3.fromRGB(85, 85, 255)
+uiStroke.Transparency = 0.4
+uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+-- Top instruction
 local instructionLabel = Instance.new("TextLabel")
 instructionLabel.Parent = mainFrame
 instructionLabel.Size = UDim2.new(1, -20, 0, 40)
@@ -31,40 +40,57 @@ instructionLabel.TextColor3 = Color3.new(1, 1, 1)
 instructionLabel.TextScaled = true
 instructionLabel.Font = Enum.Font.SourceSansBold
 
--- Title Label
+-- Title: ECLIPSE 🌙
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Parent = mainFrame
 titleLabel.Size = UDim2.new(1, -20, 0, 50)
 titleLabel.Position = UDim2.new(0, 10, 0.25, 0)
 titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "Warm ðŸ”¥"
-titleLabel.TextColor3 = Color3.fromRGB(255, 140, 0)
+titleLabel.Text = "ECLIPSE 🌙"
+titleLabel.TextColor3 = Color3.fromRGB(200, 200, 255)
 titleLabel.TextScaled = true
 titleLabel.Font = Enum.Font.GothamBold
 
--- Copy Button
+-- Copy Button (Sky Blue)
 local copyButton = Instance.new("TextButton")
 copyButton.Parent = mainFrame
 copyButton.Size = UDim2.new(0.6, 0, 0, 50)
 copyButton.Position = UDim2.new(0.2, 0, 0.7, 0)
-copyButton.BackgroundColor3 = Color3.fromRGB(255, 221, 0)
+copyButton.BackgroundColor3 = Color3.fromRGB(135, 206, 235)
 copyButton.Text = "Copy Discord Link"
 copyButton.TextColor3 = Color3.new(0, 0, 0)
 copyButton.TextScaled = true
 copyButton.Font = Enum.Font.GothamBold
 copyButton.BorderSizePixel = 0
 
--- Rounded corners for button
+-- Rounded corners for the button
 local buttonCorner = Instance.new("UICorner")
 buttonCorner.CornerRadius = UDim.new(0, 10)
 buttonCorner.Parent = copyButton
 
--- Link and clipboard logic
-local discordLink = "dsc.gg/geteclipse" -- Replace this
+-- Button glow
+local buttonGlow = Instance.new("UIStroke")
+buttonGlow.Parent = copyButton
+buttonGlow.Thickness = 2
+buttonGlow.Color = Color3.fromRGB(135, 206, 250)
+buttonGlow.Transparency = 0.3
+buttonGlow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+-- Clipboard logic (replace with your actual link)
+local discordLink = "https://discord.gg/YOURINVITECODE"
 
 copyButton.MouseButton1Click:Connect(function()
     setclipboard(discordLink)
     copyButton.Text = "Copied!"
     wait(1.5)
     copyButton.Text = "Copy Discord Link"
+end)
+
+-- Optional: Button hover effect
+copyButton.MouseEnter:Connect(function()
+    copyButton.BackgroundColor3 = Color3.fromRGB(150, 220, 255)
+end)
+
+copyButton.MouseLeave:Connect(function()
+    copyButton.BackgroundColor3 = Color3.fromRGB(135, 206, 235)
 end)
